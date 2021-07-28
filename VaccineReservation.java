@@ -1,10 +1,12 @@
+
 import java.sql.*;
+import java.io.*;
 
 public class VaccineReservation {
 
     public static void main(String[] args) throws Exception {
 
-        
+
 
         try {
             VaccineReservationScheduler vrs = new VaccineReservationScheduler();
@@ -28,20 +30,20 @@ class VaccineReservationScheduler {
 
     public VaccineReservationScheduler() throws Exception {
         this.sqlClient = new SqlConnectionManager(
-            System.getenv("Server"),
-            System.getenv("DBName"),
-            System.getenv("UserID"),
-            System.getenv("Password")
+                System.getenv("Server"),
+                System.getenv("DBName"),
+                System.getenv("UserID"),
+                System.getenv("Password")
         );
         try {
-            sqlClient.openConnection();  
+            sqlClient.openConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
         this.slotSchedulingId = 0;
         this.getAppointmentSQL = "SELECT something...";
     }
-    
+
 
     /* Method that reserves a CareGiver appointment slot &
     returns the unique scheduling slotid
@@ -50,7 +52,7 @@ class VaccineReservationScheduler {
     public int putHoldOnAppointmentSlot() throws Exception {
 
         slotSchedulingId = 0;
-        getAppointmentSQL = "SELECT * FROM Caregivers;";
+        getAppointmentSQL = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES";
         try {
             sqlClient.executeQuery(getAppointmentSQL);
             return slotSchedulingId;
@@ -68,11 +70,11 @@ class VaccineReservationScheduler {
     returns -1 the same slotid when the database command fails
     returns -2 if the slotid parm is invalid*/
     public int ScheduleAppointmentSlot(int slotId) {
-        
+
         getAppointmentSQL = "SELECT something...";
         if (slotId < 1) {
             return -2;
-        } 
+        }
         try {
             sqlClient.executeQuery(getAppointmentSQL);
             return slotSchedulingId;
