@@ -13,6 +13,9 @@ public class VaccineReservation {
             vrs.putHoldOnAppointmentSlot();
         } catch (SQLException e) {
             e.printStackTrace();
+            // List<VaccineCaregiver> caregiversList =new ArrayList<VaccineCaregiver>();
+            //
+            //
         }
 
     }
@@ -24,9 +27,10 @@ class VaccineReservationScheduler {
 
 
 
-    int slotSchedulingId;
-    String getAppointmentSQL;
-    SqlConnectionManager sqlClient;
+    private int slotSchedulingId;
+    private String getAppointmentSQL;
+    private SqlConnectionManager sqlClient;
+
 
     public VaccineReservationScheduler() throws Exception {
         this.sqlClient = new SqlConnectionManager(
@@ -35,13 +39,9 @@ class VaccineReservationScheduler {
                 System.getenv("UserID"),
                 System.getenv("Password")
         );
-        try {
-            sqlClient.openConnection();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        sqlClient.openConnection();
         this.slotSchedulingId = 0;
-        this.getAppointmentSQL = "SELECT something...";
+        this.getAppointmentSQL = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES";
     }
 
 
@@ -51,10 +51,8 @@ class VaccineReservationScheduler {
 
     public int putHoldOnAppointmentSlot() throws Exception {
 
-        slotSchedulingId = 0;
-        getAppointmentSQL = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES";
         try {
-            sqlClient.executeQuery(getAppointmentSQL);
+            ResultSet rs = sqlClient.executeQuery(getAppointmentSQL);
             return slotSchedulingId;
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +69,6 @@ class VaccineReservationScheduler {
     returns -2 if the slotid parm is invalid*/
     public int ScheduleAppointmentSlot(int slotId) {
 
-        getAppointmentSQL = "SELECT something...";
         if (slotId < 1) {
             return -2;
         }

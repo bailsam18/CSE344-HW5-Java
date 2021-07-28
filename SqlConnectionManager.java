@@ -60,7 +60,6 @@ public class SqlConnectionManager {
         conn.close();
     }
 
-    // should return resultset?
     public ResultSet executeQuery(String query) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement(query);
