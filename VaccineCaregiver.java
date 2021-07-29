@@ -29,7 +29,6 @@ public class VaccineCaregiver {
             ResultSet rs = sqlClient.executeQuery("INSERT INTO CareGivers (CaregiverName) VALUES ('\" + name + \"');" + "SELECT @@IDENTITY AS 'Identity'; ");
             rs.next();
             caregiverId = (rs.getString(1));
-            System.out.println(caregiverId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
