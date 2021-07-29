@@ -1,7 +1,5 @@
-
 import java.sql.*;
-import java.io.FileInputStream;
-import java.util.Properties;
+
 
 
 public class SqlConnectionManager {
@@ -9,10 +7,10 @@ public class SqlConnectionManager {
 
     public Connection conn;
 
-    String server;
-    String dbName;
-    String userId;
-    String password;
+    private String server;
+    private String dbName;
+    private String userId;
+    private String password;
 
     public SqlConnectionManager(String server, String dbName, String userId, String password) {
         this.server = server;
@@ -56,23 +54,28 @@ public class SqlConnectionManager {
     }
 
 
-    public void closeConnection() throws Exception {
-        conn.close();
-    }
+
 
     public ResultSet executeQuery(String query) throws Exception {
         try {
             PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet test = ps.executeQuery();
-            while (test.next()) {
-                System.out.println(test.getString(1));
-            }
+            ResultSet rs = ps.executeQuery();
             ps.close();
-            return test;
+            return rs;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void executeUpdate(String query) throws Exception {
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

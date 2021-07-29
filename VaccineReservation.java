@@ -1,6 +1,6 @@
-
 import java.sql.*;
-import java.io.*;
+import java.util.*;
+
 
 public class VaccineReservation {
 
@@ -13,10 +13,10 @@ public class VaccineReservation {
             vrs.putHoldOnAppointmentSlot();
         } catch (SQLException e) {
             e.printStackTrace();
-            // List<VaccineCaregiver> caregiversList =new ArrayList<VaccineCaregiver>();
-            //
-            //
         }
+        List<VaccineCaregiver> caregiversList =new ArrayList<VaccineCaregiver>();
+        VaccineCaregiver vaccineCaregiver = new VaccineCaregiver("Carrie Nation");
+
 
     }
 
@@ -52,7 +52,7 @@ class VaccineReservationScheduler {
     public int putHoldOnAppointmentSlot() throws Exception {
 
         try {
-            ResultSet rs = sqlClient.executeQuery(getAppointmentSQL);
+            sqlClient.executeQuery(getAppointmentSQL);
             return slotSchedulingId;
         } catch (Exception e) {
             e.printStackTrace();
