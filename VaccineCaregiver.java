@@ -24,11 +24,10 @@ public class VaccineCaregiver {
         }
 
 
-        sqltext = "INSERT INTO CareGivers (CaregiverName) VALUES ('" + name + "')";
         caregiverId = "";
         try {
-            sqlClient.executeUpdate(sqltext);
-            ResultSet rs = sqlClient.executeQuery("SELECT @@IDENTITY AS 'Identity'; ");
+            ResultSet rs = sqlClient.executeQuery("INSERT INTO CareGivers (CaregiverName) VALUES ('\" + name + \"');" + "SELECT @@IDENTITY AS 'Identity'; ");
+            rs.next();
             caregiverId = (rs.getString(1));
             System.out.println(caregiverId);
         } catch (SQLException e) {
@@ -53,7 +52,6 @@ public class VaccineCaregiver {
             lcv += 1;
         }
 
-        String formatString = "%Y-%m-%d";
         for (LocalDate localDate : weeksToSchedule) {
             String date = localDate.toString();
 
@@ -64,7 +62,6 @@ public class VaccineCaregiver {
                     sqltext2 += caregiverId + ", '"  + date + "', ";
                     sqltext2 += hr + ", ";
                     sqltext2 += startTime + ")";
-
                     try {
                         sqlClient.executeUpdate(sqltext2);
                         startTime += appointmentDuration;
@@ -73,8 +70,6 @@ public class VaccineCaregiver {
                     }
 
                 }
-
-
 
             }
 

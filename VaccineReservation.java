@@ -10,12 +10,14 @@ public class VaccineReservation {
 
         try {
             VaccineReservationScheduler vrs = new VaccineReservationScheduler();
-            vrs.putHoldOnAppointmentSlot();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        List<VaccineCaregiver> caregiversList =new ArrayList<VaccineCaregiver>();
-        VaccineCaregiver vaccineCaregiver = new VaccineCaregiver("Carrie Nation");
+
+
+        List<VaccineCaregiver> caregiversList = new ArrayList<VaccineCaregiver>();
+        caregiversList.add(new VaccineCaregiver("Carrie Nation"));
+        caregiversList.add(new VaccineCaregiver("Clare Barton"));
 
 
     }
@@ -41,7 +43,7 @@ class VaccineReservationScheduler {
         );
         sqlClient.openConnection();
         this.slotSchedulingId = 0;
-        this.getAppointmentSQL = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES";
+        this.getAppointmentSQL = "SELECT something...";
     }
 
 
@@ -68,7 +70,6 @@ class VaccineReservationScheduler {
     returns -1 the same slotid when the database command fails
     returns -2 if the slotid parm is invalid*/
     public int ScheduleAppointmentSlot(int slotId) {
-
         if (slotId < 1) {
             return -2;
         }
